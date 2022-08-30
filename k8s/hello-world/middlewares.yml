@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strict-transport-security
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true
+    stsSeconds: 31536000

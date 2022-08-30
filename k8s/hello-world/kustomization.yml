@@ -1,0 +1,8 @@
+kind: Kustomization
+
+namespace: hello-world
+
+resources:
+- hello-world
+- namespace.yml
+- secret.yml

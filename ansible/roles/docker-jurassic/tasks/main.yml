@@ -1,0 +1,14 @@
+---
+- name: Jurassic | Create Base Directory
+  file:
+    path: /srv/jurassic
+    state: directory
+- name: Jurassic | Install Docker Compose file
+  template:
+    src: templates/docker-compose.yml.j2
+    dest: /srv/jurassic/docker-compose.yml
+- name: Jurassic | Deploy Docker Compose stack
+  docker_compose:
+    project_src: /srv/jurassic
+    files:
+    - docker-compose.yml

@@ -1,0 +1,31 @@
+---
+- name: Add ansible user
+  when: ansible_os_family != 'Alpine'
+  user:
+      name: "{{ ansible_user_name }}"
+      password: "{{ ansible_user_pass | password_hash('sha512', 'q53EyHBRQb') }}"
+      groups: # Empty by default, here we give it some groups
+       - sudo
+      state: present
+- name: Alpine | Add ansible user
+  command: "/usr/sbin/adduser -D {{ ansible_user_name }}"
+  when: ansible_os_family == 'Alpine'
+  args:
+    creates: "/home/ansible"
+## else newly created account is locked
+- name: Alpine | Unlock user
+  command: "/usr/bin/passwd -u {{ ansible_user_name }}"
+  failed_when: false
+
+- name: Alpine | Assign ansible user password
+  when: ansible_os_family == 'Alpine'
+  shell: "echo '{{ ansible_user_name }}:{{ansible_user_pass}}' | /usr/sbin/chpasswd"
+
+- name: Set authorized_keys from file
+  when: ansible_os_family == 'Alpine'
+  authorized_key:
+    user: "{{ ansible_user_name }}"
+    key: '{{ item }}'
+    state: present
+  with_file:
+    - garrit_pgp.pub

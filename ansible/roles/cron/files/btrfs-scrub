@@ -1,0 +1,7 @@
+#!/bin/bash
+
+curl -fsS -m 10 --retry 5 -o /dev/null $PING_URL/start
+
+output=$(btrfs scrub start -B /var/anubis)
+
+curl -fsS -m 10 --retry 5 --data-raw "$output" -o /dev/null $PING_URL/$?

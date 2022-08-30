@@ -1,0 +1,6 @@
+---
+- name: Install Pip modules
+  when: pip is defined
+  pip:
+    name: "{{ pip }}"
+    state: present

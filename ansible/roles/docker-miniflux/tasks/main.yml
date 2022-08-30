@@ -1,0 +1,14 @@
+---
+- name: Miniflux | Create Base Directory
+  file:
+    path: /srv/miniflux
+    state: directory
+- name: Miniflux | Install Docker Compose file
+  template:
+    src: templates/docker-compose.yml.j2
+    dest: /srv/miniflux/docker-compose.yml
+- name: Miniflux | Deploy Docker Compose stack
+  docker_compose:
+    project_src: /srv/miniflux
+    files:
+    - docker-compose.yml

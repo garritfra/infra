@@ -1,0 +1,18 @@
+---
+- name: Alpine | Install packages
+  when: ansible_os_family == 'Alpine'
+  community.general.apk:
+    name: "{{ packages }}"
+    state: present
+
+- name: Debian | Install packages
+  when: ansible_os_family == 'Debian'
+  apt:
+    update_cache: yes
+    pkg: "{{ packages }}"
+
+- name: Darwin | Install packages
+  when: ansible_os_family == 'Darwin'
+  homebrew:
+    update_homebrew: yes
+    name: "{{ packages }}"

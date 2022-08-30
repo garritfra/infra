@@ -1,0 +1,37 @@
+entryPoints:
+  web:
+    address: :80
+
+    # https://medium.com/@_jonas/traefik-kubernetes-ingress-and-x-forwarded-headers-82194d319b0e
+    proxyProtocol:
+      insecure: true
+    forwardedHeaders:
+      insecure: true
+
+    http:
+      redirections:
+        entryPoint:
+          to: 'websecure'
+          scheme: 'https'
+
+  websecure:
+    address: :443
+
+api:
+  dashboard: true
+
+certificatesResolvers:
+  lets-encrypt:
+    acme:
+      email: 'garrit@slashdev.space'
+      storage: 'acme.json'
+      tlsChallenge: {}
+providers:
+  docker:
+    watch: true
+    network: traefik
+  file:
+    filename: 'traefik_dynamic.yml'
+
+accessLog:
+  filePath: "traefik.log"

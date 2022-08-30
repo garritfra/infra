@@ -1,0 +1,2 @@
+TRAEFIK_DASHBOARD_HOST: traefik.slashdev.space
+TRAEFIK_ACME_EMAIL: garrit@slashdev.space

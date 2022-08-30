@@ -1,0 +1,28 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: hello-world-db
+  namespace: hello-world
+spec:
+  teamId: "hello-world"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 100m
+      memory: 150Mi
+  volume:
+    size: 200Mi
+    storageClass: longhorn
+  numberOfInstances: 1
+  users:
+    helloworld:  # database owner
+    - superuser
+    - createdb
+  databases:
+    foo: helloworld  # dbname: owner
+  preparedDatabases:
+    bar: {}
+  postgresql:
+    version: "14"

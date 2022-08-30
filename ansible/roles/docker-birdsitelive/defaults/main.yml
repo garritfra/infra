@@ -1,0 +1,12 @@
+BIRDSITE_POSTGRES_USER: birdsitelive
+BIRDSITE_POSTGRES_PASSWORD: postgres
+BIRDSITE_POSTGRES_DB: birdsitelive
+
+BIRDSITE_ADMIN_USERNAME: admin
+BIRDSITE_ADMIN_PASSWORD: admin
+BIRDSITE_HOSTNAME: birdsite.slashdev.space
+ACME_EMAIL: garrit@slashdev.space
+
+BIRDSITE_TWITTER_CONSUMER_KEY: createviatwitter
+BIRDSITE_TWITTER_CONSUMER_SECRET: createviatwitter
+

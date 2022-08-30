@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  jurassic:
+    container_name: {{ JURASSIC_HOSTNAME }}
+    restart: always
+    image: ghcr.io/garritfra/garrit.xyz/jurassic:5612d3e82ea79aad4c01a734fde00881a7e3e678
+    ports:
+      - 8080
+    labels:
+      - traefik.http.routers.jurassic.rule=Host(`{{ JURASSIC_HOSTNAME }}`)
+      - traefik.http.routers.jurassic.tls=true
+      - traefik.http.routers.jurassic.tls.certresolver=lets-encrypt
+    networks:
+      - jurassic
+      - traefik
+networks:
+    jurassic:
+      external: false
+    traefik:
+      external:
+        name: traefik

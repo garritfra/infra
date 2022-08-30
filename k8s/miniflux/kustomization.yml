@@ -1,0 +1,14 @@
+namespace: miniflux
+
+resources:
+  - namespace.yml
+  - secret.yml
+  - db.yml
+  - deployment.yml
+  - service.yml
+  - ingress.yml
+
+configMapGenerator:
+  - name: miniflux
+    envs:
+      - config/miniflux.env

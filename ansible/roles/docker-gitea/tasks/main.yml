@@ -1,0 +1,16 @@
+---
+- name: Gitea | Create Base Directory
+  file:
+    path: /srv/gitea
+    state: directory
+- name: Gitea | Install configuration files
+  template:
+    src: templates/{{item}}
+    dest: /srv/gitea/{{item}}
+  loop:
+    - docker-compose.yml
+- name: Gitea | Deploy Docker Compose stack
+  docker_compose:
+    project_src: /srv/gitea
+    files:
+    - docker-compose.yml

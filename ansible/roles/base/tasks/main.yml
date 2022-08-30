@@ -1,0 +1,7 @@
+---
+- name: Setup Ansible user
+  include: setup-ansible-user.yml
+- name: Install packages
+  include: install-packages.yml
+- name: Install Pip modules
+  include: install-pip-modules.yml

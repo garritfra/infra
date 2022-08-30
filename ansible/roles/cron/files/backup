@@ -1,0 +1,7 @@
+#!/bin/bash
+
+curl -fsS -m 10 --retry 5 -o /dev/null $PING_URL/start
+
+b2 sync /anubis/garrit b2://walhalla
+
+curl -fsS -m 10 --retry 5 -o /dev/null $PING_URL/$?

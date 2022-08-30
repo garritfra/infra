@@ -1,0 +1,14 @@
+---
+- name: Wireguard | Install configuration files
+  template:
+    src: templates/{{item}}
+    dest: /etc/wireguard/{{item}}
+  loop:
+    - wg1.conf
+- name: Wireguard | Restart systemd service
+  systemd:
+    name: "wg-quick@{{item}}"
+    enabled: yes
+    state: restarted
+  loop:
+    - wg1

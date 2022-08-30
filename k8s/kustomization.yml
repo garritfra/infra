@@ -1,0 +1,11 @@
+kind: Kustomization
+
+resources:
+- sealed-secrets
+- postgres-operator
+- hello-world
+- longhorn
+- traefik
+- users
+- miniflux
+# - monitoring

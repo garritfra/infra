@@ -1,0 +1,7 @@
+namespace: monitoring
+
+resources:
+  - rbac
+  - configmap.yml
+  - deployment.yml
+  - service.yml

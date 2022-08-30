@@ -1,0 +1,47 @@
+version: "3"
+
+networks:
+    birdsitelivenetwork:
+    traefik:
+        external:
+            name: traefik
+
+services:
+    server:
+        image: nicolasconstant/birdsitelive:0.20.0
+        restart: always
+        container_name: birdsitelive
+        labels:
+            - traefik.http.routers.birdsitelive.rule=Host(`{{ BIRDSITE_HOSTNAME }}`)
+            - traefik.http.routers.birdsitelive.tls=true
+            - traefik.http.routers.birdsitelive.tls.certresolver=lets-encrypt
+        environment:
+            - Instance:Domain={{ BIRDSITE_HOSTNAME }}
+            - Instance:AdminEmail={{ ACME_EMAIL }}
+            - Db:Type=postgres
+            - Db:Host=db
+            - Db:Name={{ BIRDSITE_POSTGRES_DB }}
+            - Db:User={{ BIRDSITE_POSTGRES_USER }}
+            - Db:Password={{ BIRDSITE_POSTGRES_PASSWORD }}
+            - Twitter:ConsumerKey={{ BIRDSITE_TWITTER_CONSUMER_KEY }}
+            - Twitter:ConsumerSecret={{ BIRDSITE_TWITTER_CONSUMER_SECRET }}
+            - Moderation:FollowersBlackListing={{ BIRDSITE_BLACKLIST }}
+        networks:
+            - birdsitelivenetwork
+            - traefik
+        depends_on:
+            - db
+
+    db:
+        image: postgres:9.6
+        restart: always
+        environment:
+            - POSTGRES_USER={{ BIRDSITE_POSTGRES_USER }}
+            - POSTGRES_PASSWORD={{ BIRDSITE_POSTGRES_PASSWORD }}
+            - POSTGRES_DB={{ BIRDSITE_POSTGRES_DB }}
+            - PUID=1001
+            - PGID=1001
+        networks:
+            - birdsitelivenetwork
+        volumes:
+            - /var/data/birdsitelive:/var/lib/postgresql/data

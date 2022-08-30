@@ -1,0 +1,10 @@
+
+# This is used to manage Ansible role dependences
+# http://docs.ansible.com/galaxy.html#installing-multiple-roles-from-a-file
+# Install with: `ansible-galaxy install -r requirements.yml`
+
+roles:
+  - name: xanmanning.k3s
+    version: v3.2.0
+
+collections:

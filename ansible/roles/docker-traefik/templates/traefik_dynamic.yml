@@ -1,0 +1,16 @@
+http:
+  middlewares:
+    simpleAuth:
+      basicAuth:
+        usersFile: "./.users"
+
+  routers:
+    api:
+      rule: 'Host(`traefik.slashdev.space`)'
+      entrypoints:
+        - websecure
+      middlewares:
+        - simpleAuth
+      service: 'api@internal'
+      tls:
+        certResolver: 'lets-encrypt'

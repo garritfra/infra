@@ -1,0 +1,8 @@
+kind: Kustomization
+
+namespace: users
+
+resources:
+- namespace.yml
+- serviceaccounts.yml
+- clusterrolebindings.yml

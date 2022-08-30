@@ -1,0 +1,64 @@
+version: '3'
+
+volumes:
+  nextcloud:
+  db:
+
+services:
+  db:
+    image: postgres:13.2
+    restart: always
+    environment:
+      - POSTGRES_DB={{ NEXTCLOUD_POSTGRES_DB }}
+      - POSTGRES_USER={{ NEXTCLOUD_POSTGRES_USER }}
+      - POSTGRES_PASSWORD={{ NEXTCLOUD_POSTGRES_PASSWORD }}
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/Berlin
+    volumes:
+      - /var/data/nextcloud/db:/var/lib/postgresql/data
+    networks:
+      - nextcloud
+  redis:
+    image: redis:6.0
+    restart: always
+    networks:
+      - nextcloud
+    command: redis-server --requirepass {{ NEXTCLOUD_REDIS_HOST_PASSWORD }}
+
+  nextcloud:
+    image: nextcloud:21.0.3
+    ports:
+      - 8081:80
+    networks:
+      - nextcloud
+      - traefik
+    labels:
+      - traefik.http.routers.nextcloud.rule=Host(`{{ NEXTCLOUD_HOSTNAME }}`)
+      - traefik.http.routers.nextcloud.tls=true
+      - traefik.http.routers.nextcloud.tls.certresolver=lets-encrypt
+    volumes:
+      - /var/data/nextcloud/html:/var/www/html
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB={{ NEXTCLOUD_POSTGRES_DB }}
+      - POSTGRES_USER={{ NEXTCLOUD_POSTGRES_USER }}
+      - POSTGRES_PASSWORD={{ NEXTCLOUD_POSTGRES_PASSWORD }}
+      - REDIS_HOST=redis
+      - REDIS_HOST_PASSWORD={{ NEXTCLOUD_REDIS_HOST_PASSWORD }}
+      - OVERWRITEHOST={{ NEXTCLOUD_HOSTNAME }}
+      - OVERWRITEPROTOCOL=https
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/Berlin
+    depends_on:
+      - db
+      - redis
+    restart: always
+
+networks:
+    nextcloud:
+      external: false
+    traefik:
+      external:
+        name: traefik

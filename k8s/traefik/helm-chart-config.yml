@@ -1,0 +1,15 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+spec:
+  valuesContent: |-
+    ports:
+      web:
+        redirectTo: websecure
+    additionalArguments:
+      - "--log.level=DEBUG"
+      - "--certificatesresolvers.le.acme.email=garrit@slashdev.space"
+      - "--certificatesresolvers.le.acme.storage=/data/acme.json"
+      - "--certificatesresolvers.le.acme.tlschallenge=true"
+      - "--certificatesresolvers.le.acme.caServer=https://acme-v02.api.letsencrypt.org/directory"

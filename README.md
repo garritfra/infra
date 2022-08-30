@@ -1,0 +1,25 @@
+# infra
+
+## Deployment
+
+1. To access the secrets, create a `.vault-password` file in the `ansible/`
+directory containing the password.
+2. Change into the `ansible/` directory
+3. Deploy the infrastructure using `ansible-playbook boostrap.yml`. This will
+deploy the terraform config under the hood.
+
+Unfortunately, the next steps have not been automated yet:
+
+1. After provisioning the terraform infrastructure, the nodes manually have to
+be added to the Tailscale cluster. Afterwards, you can add them to the `hosts.ini`.
+
+## Ansible
+
+To access the secrets, create a `.vault-password` file in the `ansible/`
+directory containing the password.
+
+## Terraform
+
+State is managed by Terraform cloud (though it would be nice to move it somewhere else...).
+
+Run `terraform login` to access it.

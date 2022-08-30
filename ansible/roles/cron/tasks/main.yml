@@ -1,0 +1,9 @@
+---
+- name: Install Cron Scripts
+  copy:
+    src: "./"
+    dest: /etc/cron.d/
+- name: Register Cron Scripts
+  loop: "{{ cron }}"
+  cron:
+    "{{ item }}"

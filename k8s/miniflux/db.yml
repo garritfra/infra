@@ -1,0 +1,26 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: miniflux-db
+  namespace: miniflux
+spec:
+  teamId: "miniflux"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: 100m
+      memory: 150Mi
+  volume:
+    size: 1Gi
+    storageClass: longhorn
+  numberOfInstances: 1
+  users:
+    miniflux:  # database owner
+    - superuser
+    - createdb
+  databases:
+    miniflux: miniflux  # dbname: owner
+  postgresql:
+    version: "14"

@@ -1,0 +1,6 @@
+namespace: monitoring
+
+resources:
+  - clusterrole.yml
+  - serviceaccount.yml
+  - clusterrolebinding.yml

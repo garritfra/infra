@@ -1,0 +1,27 @@
+---
+- name: Traefik | Create Base Directory
+  file:
+    path: /srv/traefik
+    state: directory
+- name: Traefik | Prepare acme.json
+  file:
+    path: /srv/traefik/acme.json
+    state: touch
+    mode: '0600'
+- name: Traefik | Install configuration files
+  template:
+    src: templates/{{item}}
+    dest: /srv/traefik/{{item}}
+  loop:
+    - docker-compose.yml
+    - traefik.yml
+    - traefik_dynamic.yml
+    - .users
+- name: Traefik | Create docker network
+  docker_network:
+    name: traefik
+- name: Traefik | Deploy Docker Compose stack
+  docker_compose:
+    project_src: /srv/traefik
+    files:
+    - docker-compose.yml

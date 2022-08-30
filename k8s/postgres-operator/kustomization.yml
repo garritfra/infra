@@ -1,0 +1,8 @@
+namespace: postgres-operator
+
+resources:
+- namespace.yml
+- configmap.yml
+- operator-service-account-rbac.yml
+- postgres-operator.yml
+- api-service.yml

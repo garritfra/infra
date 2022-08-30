@@ -1,0 +1,3 @@
+#!/bin/sh
+
+curl -fsS -m 10 --retry 5 --data-raw "$(uptime)" -o /dev/null $PING_URL

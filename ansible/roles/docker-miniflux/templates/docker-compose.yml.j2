@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  miniflux-db:
+    container_name: Miniflux_Database
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER={{ MINIFLUX_POSTGRES_USER }}
+      - POSTGRES_PASSWORD={{ MINIFLUX_POSTGRES_PASSWORD }}
+      - PUID=1001
+      - PGID=1001
+    networks:
+      - miniflux
+    volumes:
+      - /var/data/miniflux:/var/lib/postgresql/data
+
+  miniflux:
+    container_name: Miniflux
+    restart: always
+    image: miniflux/miniflux:2.0.37
+    ports:
+      - 8082:8080
+    environment:
+      - DATABASE_URL=postgres://{{ MINIFLUX_POSTGRES_USER}}:{{ MINIFLUX_POSTGRES_PASSWORD }}@miniflux-db/miniflux?sslmode=disable
+      - RUN_MIGRATIONS=1
+      - CREATE_ADMIN=1
+      - ADMIN_USERNAME={{ MINIFLUX_ADMIN_USERNAME }}
+      - ADMIN_PASSWORD={{ MINIFLUX_ADMIN_PASSWORD }}
+    depends_on:
+      - miniflux-db
+    labels:
+      - traefik.http.routers.miniflux.rule=Host(`{{ MINIFLUX_HOSTNAME }}`)
+      - traefik.http.routers.miniflux.tls=true
+      - traefik.http.routers.miniflux.tls.certresolver=lets-encrypt
+    networks:
+      - miniflux
+      - traefik
+networks:
+    miniflux:
+      external: false
+    traefik:
+      external:
+        name: traefik

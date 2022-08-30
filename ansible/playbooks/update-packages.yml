@@ -1,0 +1,12 @@
+---
+- name: update all alpine packages
+  when: ansible_os_family == 'Alpine'
+  command: /sbin/apk upgrade -U -a
+
+- name: Update apt cache
+  when: ansible_os_family == 'Debian'
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade apt packages
+  when: ansible_os_family == 'Debian'
+  apt: force_apt_get=yes cache_valid_time=3600

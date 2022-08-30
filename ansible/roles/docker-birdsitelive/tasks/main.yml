@@ -1,0 +1,16 @@
+---
+- name: BirdsiteLIVE | Create Base Directory
+  file:
+    path: /srv/birdsite
+    state: directory
+- name: BirdsiteLIVE | Install configuration files
+  template:
+    src: templates/{{item}}
+    dest: /srv/birdsite/{{item}}
+  loop:
+    - docker-compose.yml
+- name: BirdsiteLIVE | Deploy Docker Compose stack
+  docker_compose:
+    project_src: /srv/birdsite
+    files:
+    - docker-compose.yml

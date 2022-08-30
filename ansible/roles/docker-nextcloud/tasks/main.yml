@@ -1,0 +1,16 @@
+---
+- name: Nextcloud | Create Base Directory
+  file:
+    path: /srv/nextcloud
+    state: directory
+- name: Nextcloud | Install configuration files
+  template:
+    src: templates/{{item}}
+    dest: /srv/nextcloud/{{item}}
+  loop:
+    - docker-compose.yml
+- name: Nextcloud | Deploy Docker Compose stack
+  docker_compose:
+    project_src: /srv/nextcloud
+    files:
+    - docker-compose.yml
