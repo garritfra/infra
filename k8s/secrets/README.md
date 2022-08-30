@@ -1,5 +1,7 @@
 # Secrets
 
+> TODO: Translate to english
+
 Da wir die Secrets manuell anlegen muss immer angegeben werden, welcher Context
 gemeint ist. Dies kann z.B. als Umgebungsvariable vorangestellt werden:
 

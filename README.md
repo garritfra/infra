@@ -1,5 +1,10 @@
 # infra
 
+This repository serves as the single source of truth for my infrastructure.
+
+> **NOTE**: The repo used to contain secrets, so I decided to dump the history
+and start fresh. No more secrets!! (hopefully)
+
 ## Deployment
 
 1. To access the secrets, create a `.vault-password` file in the `ansible/`
@@ -23,3 +28,7 @@ directory containing the password.
 State is managed by Terraform cloud (though it would be nice to move it somewhere else...).
 
 Run `terraform login` to access it.
+
+## Kubernetes
+
+To apply the resources to the cluster, run `kubectl apply -k k8s`.
