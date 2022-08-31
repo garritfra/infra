@@ -3,7 +3,7 @@
 This repository serves as the single source of truth for my infrastructure.
 
 > **NOTE**: The repo used to contain secrets, so I decided to dump the history
-and start fresh. No more secrets!! (hopefully) The previous history can be found
+and start fresh. No more secrets (hopefully)!! The previous history can be found
 in the private "infra-archive" repository
 
 ## Deployment
