@@ -3,7 +3,6 @@
 ansible_user: root # TODO: use unprivileged user
 
 k3s_version: v1.24.3+k3s1
-systemd_dir: /etc/systemd/system
 
-k3s_server:
-  flannel-backend: 'host-gw'  # This needs to be in quotes; TODO: dig into flannel to see if this is even neccessary
+extra_server_args: ""
+extra_agent_args: ""

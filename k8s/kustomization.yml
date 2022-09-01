@@ -7,5 +7,5 @@ resources:
 - longhorn
 - traefik
 - users
-- miniflux
+# - miniflux
 # - monitoring

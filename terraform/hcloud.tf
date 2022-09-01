@@ -14,7 +14,7 @@ resource "hcloud_ssh_key" "garrit" {
 }
 
 resource "hcloud_server" "k8s" {
-  count = 1
+  count = 0
 
   name        = "k8s-${count.index}"
   location    = "nbg1"
@@ -55,6 +55,18 @@ resource "hcloud_firewall" "k8s" {
     direction   = "in"
     protocol    = "tcp"
     port        = "22"
+    source_ips = [
+      "0.0.0.0/0",
+      "::/0"
+    ]
+  }
+
+  # TODO: ONLY FOR TESTING PURPOSES
+  rule {
+    description = "k8s control plane"
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "6443"
     source_ips = [
       "0.0.0.0/0",
       "::/0"
