@@ -1,0 +1,6 @@
+- name: Join tailscale network
+  hosts: k3s_cluster
+  vars_files:
+    - ../vars/vault.yml
+  roles:
+    - role: artis3n.tailscale

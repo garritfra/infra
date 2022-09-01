@@ -5,6 +5,10 @@ provider "hcloud" {
 
 locals {
   hcloud_token = sensitive(data.ansiblevault_path.hcloud_token.value)
+  locations = [
+    "nbg1",
+    "fsn1"
+  ]
 }
 
 # Create a new SSH key
@@ -14,10 +18,10 @@ resource "hcloud_ssh_key" "garrit" {
 }
 
 resource "hcloud_server" "k8s" {
-  count = 0
+  count = 3
 
-  name        = "k8s-${count.index}"
-  location    = "nbg1"
+  name        = "htz-${local.locations[count.index % length(local.locations)]}-${floor(count.index / length(local.locations))}"
+  location    = local.locations[count.index % length(local.locations)]
   image       = "ubuntu-22.04"
   server_type = "cx11"
   ssh_keys    = [hcloud_ssh_key.garrit.id]
@@ -138,4 +142,13 @@ resource "hcloud_firewall_attachment" "k8s" {
 
   firewall_id = one(hcloud_firewall.k8s).id
   server_ids  = [for s in hcloud_server.k8s : s.id]
+}
+
+output "hetzner_ips" {
+  value = [
+    for s in hcloud_server.k8s : {
+      hostname = s.name
+      ip = s.ipv4_address
+    }
+  ]
 }
