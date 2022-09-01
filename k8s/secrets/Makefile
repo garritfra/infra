@@ -37,6 +37,12 @@ miniflux: prepare
 		--from-env-file=$(BASE)/$@/$@.env \
 		--dry-run=client -oyaml | $(KUBESEAL) --cert=$(CERT) -o yaml > ../$@/secret.yml
 
+.PHONY: freshrss
+freshrss: prepare
+	$(KUBECTX) -n freshrss create secret generic $@ \
+		--from-env-file=$(BASE)/$@/$@.env \
+		--dry-run=client -oyaml | $(KUBESEAL) --cert=$(CERT) -o yaml > ../$@/secret.yml
+
 .PHONY: all
-all: hello-world miniflux
+all: hello-world miniflux freshrss
 

@@ -1,0 +1,14 @@
+namespace: freshrss
+
+resources:
+  - namespace.yml
+  - secret.yml
+  - pvc.yml
+  - replicaset.yml
+  - service.yml
+  - ingress.yml
+
+configMapGenerator:
+  - name: freshrss
+    envs:
+      - config/freshrss.env
