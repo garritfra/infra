@@ -1,4 +1,6 @@
 namespace: kube-system
 
 resources:
+  - middlewares.yml
+  - secret.yml
   - helm-chart-config.yml
