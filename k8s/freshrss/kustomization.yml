@@ -7,6 +7,7 @@ resources:
   - replicaset.yml
   - service.yml
   - ingress.yml
+  - jobs
 
 configMapGenerator:
   - name: freshrss
