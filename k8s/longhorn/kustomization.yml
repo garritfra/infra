@@ -3,6 +3,7 @@ namespace: longhorn-system
 resources:
   - secret.yml
   - https://raw.githubusercontent.com/longhorn/longhorn/v1.3.1/deploy/longhorn.yaml
+  - ingress.yml
 
 patchesStrategicMerge:
   - configmap.yml
