@@ -7,6 +7,6 @@ resources:
 - traefik
 - users
 - freshrss
+- monitoring
 # - hello-world
 # - miniflux
-# - monitoring

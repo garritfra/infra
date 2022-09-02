@@ -1,4 +1,8 @@
+namespace: monitoring
+
 resources:
+  - configmap.yml
   - pvc.yml
   - deployment.yml
   - service.yml
+  - ingress.yml

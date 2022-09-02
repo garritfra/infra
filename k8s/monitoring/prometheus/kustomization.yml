@@ -3,5 +3,6 @@ namespace: monitoring
 resources:
   - rbac
   - configmap.yml
+  - pvc.yml
   - deployment.yml
   - service.yml

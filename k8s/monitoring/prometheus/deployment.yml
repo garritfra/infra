@@ -13,6 +13,11 @@ spec:
         app: prometheus
     spec:
       serviceAccountName: prometheus
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
       containers:
       - name: prometheus
         image: prom/prometheus:v2.37.0
@@ -22,6 +27,8 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /etc/prometheus
+        - name: prometheus-data
+          mountPath: /prometheus
         resources:
           limits:
             cpu: 250m
@@ -33,3 +40,6 @@ spec:
       - name: config-volume
         configMap:
          name: prometheus-config
+      - name: prometheus-data
+        persistentVolumeClaim:
+          claimName: prometheus-pvc
