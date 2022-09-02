@@ -1,4 +1,8 @@
 namespace: longhorn-system
 
 resources:
+  - secret.yml
   - https://raw.githubusercontent.com/longhorn/longhorn/v1.3.0/deploy/longhorn.yaml
+
+patchesStrategicMerge:
+  - configmap.yml

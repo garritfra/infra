@@ -43,6 +43,12 @@ freshrss: prepare
 		--from-env-file=$(BASE)/$@/$@.env \
 		--dry-run=client -oyaml | $(KUBESEAL) --cert=$(CERT) -o yaml > ../$@/secret.yml
 
+.PHONY: longhorn
+longhorn: prepare
+	$(KUBECTX) -n longhorn-system create secret generic $@ \
+		--from-env-file=$(BASE)/$@/$@.env \
+		--dry-run=client -oyaml | $(KUBESEAL) --cert=$(CERT) -o yaml > ../$@/secret.yml
+
 .PHONY: all
-all: hello-world miniflux freshrss
+all: hello-world miniflux freshrss longhorn
 
