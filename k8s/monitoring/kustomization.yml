@@ -1,7 +1,7 @@
-namespace: monitoring
-
 resources:
   - namespace.yml
   - prometheus
   - grafana
   - node-exporter
+  - promtail
+  - loki

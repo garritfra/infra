@@ -1,0 +1,11 @@
+namespace: monitoring
+
+resources:
+  - crd
+
+helmCharts:
+  - name: loki
+    releaseName: loki
+    includeCRDs: false
+    repo: https://grafana.github.io/helm-charts
+    version: 2.16.0

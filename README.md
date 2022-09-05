@@ -32,4 +32,4 @@ Run `terraform login` to access it.
 
 ## Kubernetes
 
-To apply the resources to the cluster, run `kubectl apply -k k8s`.
+To apply the resources to the cluster, run `kustomize build --enable-helm k8s | kubectl apply -f -`.
