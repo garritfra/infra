@@ -15,15 +15,15 @@ data:
     storage-over-provisioning-percentage:
     storage-minimal-available-percentage:
     upgrade-checker:
-    default-replica-count:
-    default-data-locality:
+    default-replica-count: 2
+    default-data-locality: "best-effort"
     guaranteed-engine-cpu:
-    default-longhorn-static-storage-class:
+    default-longhorn-static-storage-class: longhorn
     backupstore-poll-interval:
     taint-toleration:
     system-managed-components-node-selector:
     priority-class:
-    auto-salvage:
+    auto-salvage: true
     auto-delete-pod-when-volume-detached-unexpectedly:
     disable-scheduling-on-cordoned-node:
     replica-zone-soft-anti-affinity:
