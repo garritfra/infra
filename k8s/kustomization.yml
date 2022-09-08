@@ -3,10 +3,10 @@ kind: Kustomization
 resources:
 - sealed-secrets
 - postgres-operator
+- monitoring
 - longhorn
 - traefik
 - users
-- freshrss
-- monitoring
+- miniflux
 # - hello-world
-# - miniflux
+# - freshrss
