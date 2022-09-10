@@ -5,6 +5,7 @@ provider "hcloud" {
 
 locals {
   hcloud_token = sensitive(data.ansiblevault_path.hcloud_token.value)
+  control_plane_count = 3
   locations = [
     "nbg1",
     "fsn1"
@@ -18,14 +19,44 @@ resource "hcloud_ssh_key" "garrit" {
 }
 
 resource "hcloud_server" "k8s" {
-  count = 3
+  count = local.control_plane_count
 
   name        = "htz-${local.locations[count.index % length(local.locations)]}-${floor(count.index / length(local.locations))}"
   location    = local.locations[count.index % length(local.locations)]
   image       = "ubuntu-22.04"
   server_type = "cpx11"
-  keep_disk = false
+  keep_disk   = false
   ssh_keys    = [hcloud_ssh_key.garrit.id]
+  public_net {
+    ipv4_enabled = true
+    ipv6_enabled = true
+  }
+
+  # **Note**: the depends_on is important when directly attaching the
+  # server to a network. Otherwise Terraform will attempt to create
+  # server and sub-network in parallel. This may result in the server
+  # creation failing randomly.
+  depends_on = [
+    hcloud_network_subnet.control_planes
+  ]
+
+  network {
+    network_id = hcloud_network.k8s.id
+    ip         = "10.0.1.${count.index + 1}"
+  }
+}
+
+
+resource "hcloud_network" "k8s" {
+  name     = "k8s"
+  ip_range = "10.0.0.0/16"
+}
+
+resource "hcloud_network_subnet" "control_planes" {
+  network_id   = hcloud_network.k8s.id
+  type         = "cloud"
+  network_zone = "eu-central"
+  ip_range     = "10.0.1.0/24"
 }
 
 resource "hcloud_firewall" "k8s" {
@@ -63,47 +94,6 @@ resource "hcloud_firewall" "k8s" {
     source_ips = [
       "0.0.0.0/0",
       "::/0"
-    ]
-  }
-
-  # TODO: ONLY FOR TESTING PURPOSES
-  rule {
-    description = "k8s control plane"
-    direction   = "in"
-    protocol    = "tcp"
-    port        = "6443"
-    source_ips = [
-      "0.0.0.0/0",
-      "::/0"
-    ]
-  }
-
-  rule {
-    description = "K8s nodes public"
-    direction   = "in"
-    protocol    = "tcp"
-    port        = "any"
-    source_ips = [
-      for s in hcloud_server.k8s : "${s.ipv4_address}/32"
-    ]
-  }
-
-  rule {
-    description = "K8s nodes public"
-    direction   = "in"
-    protocol    = "icmp"
-    source_ips = [
-      for s in hcloud_server.k8s : "${s.ipv4_address}/32"
-    ]
-  }
-
-  rule {
-    description = "K8s nodes public"
-    direction   = "in"
-    protocol    = "udp"
-    port        = "any"
-    source_ips = [
-      for s in hcloud_server.k8s : "${s.ipv4_address}/32"
     ]
   }
 
