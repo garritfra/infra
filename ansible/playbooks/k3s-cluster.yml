@@ -3,9 +3,4 @@
   vars_files:
     - ../vars/vault.yml
   roles:
-    - role: artis3n.tailscale
     - role: xanmanning.k3s
-
-  vars:
-    k3s_become: true
-    k3s_etcd_datastore: true

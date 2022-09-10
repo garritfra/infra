@@ -98,6 +98,17 @@ resource "hcloud_firewall" "k8s" {
   }
 
   rule {
+    description = "Control Plane external"
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "6443"
+    source_ips = [
+      "0.0.0.0/0",
+      "::/0"
+    ]
+  }
+
+  rule {
     description = "K8s nodes internal"
     direction   = "in"
     protocol    = "tcp"

@@ -4,6 +4,14 @@ ansible_user: root # TODO: use unprivileged user
 ansible_python_interpreter: /usr/bin/python3
 
 k3s_version: v1.24.3+k3s1
+k3s_become: true
 
 extra_server_args: ""
 extra_agent_args: ""
+k3s_etcd_datastore: true
+k3s_server:
+  advertise-address: "{{ ip }}"
+  bind-address: 0.0.0.0
+k3s_agent:
+  node-ip: "{{ ip }}"
+  node-external-ip: "{{ ip }}"
