@@ -9,9 +9,11 @@ k3s_become: true
 extra_server_args: ""
 extra_agent_args: ""
 k3s_etcd_datastore: true
+k3s_server_manifests_templates:
+  - "manifests/calico/tigera-operator.yml"
+  - "manifests/calico/calico-custom-resources.yml"
+
 k3s_server:
-  advertise-address: "{{ ip }}"
-  bind-address: 0.0.0.0
+  cluster-cidr: 10.42.0.0/16
+  flannel-backend: "none"
 k3s_agent:
-  node-ip: "{{ ip }}"
-  node-external-ip: "{{ ip }}"

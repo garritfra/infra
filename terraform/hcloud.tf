@@ -136,6 +136,35 @@ resource "hcloud_firewall" "k8s" {
       "10.0.0.0/16"
     ]
   }
+
+  rule {
+    description = "K8s nodes eth0"
+    direction   = "in"
+    protocol    = "tcp"
+    port        = "any"
+    source_ips = [
+      for s in hcloud_server.k8s : "${s.ipv4_address}/32"
+    ]
+  }
+
+  rule {
+    description = "K8s nodes eth0"
+    direction   = "in"
+    protocol    = "udp"
+    port        = "any"
+    source_ips = [
+      for s in hcloud_server.k8s : "${s.ipv4_address}/32"
+    ]
+  }
+
+  rule {
+    description = "K8s nodes eth0"
+    direction   = "in"
+    protocol    = "icmp"
+    source_ips = [
+      for s in hcloud_server.k8s : "${s.ipv4_address}/32"
+    ]
+  }
 }
 
 resource "hcloud_firewall_attachment" "k8s" {
@@ -151,6 +180,7 @@ output "hetzner_ips" {
     for s in hcloud_server.k8s : {
       hostname = s.name
       ip = s.ipv4_address
+      network_ip = s.network
     }
   ]
 }
