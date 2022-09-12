@@ -9,3 +9,8 @@ helmCharts:
     includeCRDs: false
     repo: https://grafana.github.io/helm-charts
     version: 2.16.0
+    valuesInline:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 300Mi

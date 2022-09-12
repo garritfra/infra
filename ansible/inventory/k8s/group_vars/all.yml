@@ -16,4 +16,6 @@ k3s_server_manifests_templates:
 k3s_server:
   cluster-cidr: 10.42.0.0/16
   flannel-backend: "none"
+  disable:
+    - traefik
 k3s_agent:

@@ -1,6 +1,7 @@
-namespace: kube-system
+namespace: traefik
 
 resources:
+  - namespace.yml
   - middlewares.yml
   - secret.yml
-  - helm-chart-config.yml
+  - helmchart.yml

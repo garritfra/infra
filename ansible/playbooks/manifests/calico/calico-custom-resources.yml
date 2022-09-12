@@ -16,6 +16,13 @@ spec:
       encapsulation: VXLANCrossSubnet
       natOutgoing: Enabled
       nodeSelector: all()
+  componentResources:
+  - componentName: Node
+    resourceRequirements:
+      limits:
+        cpu: 150m
+        memory: 100Mi
+
 
 ---
 

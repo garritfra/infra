@@ -4,7 +4,7 @@ metadata:
   name: longhorn-frontend
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls.certresolver: le
+    # traefik.ingress.kubernetes.io/router.tls.certresolver: le
     traefik.ingress.kubernetes.io/router.middlewares: kube-system-require-admin-auth@kubernetescrd
 
 spec:
