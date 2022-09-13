@@ -3,5 +3,4 @@ namespace: traefik
 resources:
   - namespace.yml
   - middlewares.yml
-  - secret.yml
   - helmchart.yml

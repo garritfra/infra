@@ -2,11 +2,12 @@ kind: Kustomization
 
 resources:
 - sealed-secrets
+- cert-manager
 - postgres-operator
 - longhorn
 - traefik
 - users
 - miniflux
 # - monitoring
-# - hello-world
+- hello-world
 # - freshrss

@@ -1,0 +1,6 @@
+namespace: cert-manager
+
+resources:
+  - namespace.yml
+  - clusterissuer.yml
+  - helmchart.yml

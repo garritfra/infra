@@ -4,8 +4,10 @@ metadata:
   name: hello-world
   namespace: hello-world
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    # traefik.ingress.kubernetes.io/router.tls.certresolver: le
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 
 spec:
   rules:
@@ -19,3 +21,7 @@ spec:
                 name: hello-world
                 port:
                   number: 80
+  tls:
+  - hosts:
+    - "test.slashdev.space"
+    secretName: test-slashdev-space-cert

@@ -1,7 +1,6 @@
 kind: Kustomization
 
 resources:
-- statefulset.yml
-- service.yml
-- ingress.yml
-# - db.yml
+  - statefulset.yml
+  - service.yml
+  - ingress.yml

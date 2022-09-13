@@ -9,17 +9,10 @@ spec:
   valuesContent: |-
     deployment:
       replicas: 2
-    ports:
-      web:
-        redirectTo: websecure
     additionalArguments:
       - "--log.level=DEBUG"
       - "--accesslog=true"
       - "--accesslog.format=json"
-      # - "--certificatesresolvers.le.acme.email=garrit@slashdev.space"
-      # - "--certificatesresolvers.le.acme.storage=/data/acme.json"
-      # - "--certificatesresolvers.le.acme.tlschallenge=true"
-      # - "--certificatesresolvers.le.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory"
     metrics:
       prometheus:
         addRoutersLabels: true
