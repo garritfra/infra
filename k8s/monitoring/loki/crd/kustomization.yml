@@ -1,8 +1,0 @@
-# Applying the crds via the loki helm chart throws this error:
-# "may not add resource with an already registered id"
-#
-# Applying the crds manually seems to work.
-
-resources:
-  - prometheusrules.yml
-  - servicemonitors.yml

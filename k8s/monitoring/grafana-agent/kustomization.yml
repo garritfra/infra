@@ -1,0 +1,6 @@
+namespace: monitoring
+
+resources:
+  - configmap.yml
+  - manifest.yml # TODO: break up into smaller files
+  

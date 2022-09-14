@@ -1,0 +1,5 @@
+namespace: monitoring
+
+resources:
+  - configmap.yml
+  - manifest.yml

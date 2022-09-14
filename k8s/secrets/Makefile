@@ -49,6 +49,12 @@ longhorn: prepare
 		--from-env-file=$(BASE)/$@/$@.env \
 		--dry-run=client -oyaml | $(KUBESEAL) --cert=$(CERT) -o yaml > ../$@/secret.yml
 
+.PHONY: monitoring
+monitoring: prepare
+	$(KUBECTX) -n monitoring create secret generic $@ \
+		--from-env-file=$(BASE)/$@/$@.env \
+		--dry-run=client -oyaml | $(KUBESEAL) --cert=$(CERT) -o yaml > ../$@/secret.yml
+
 .PHONY: admin-auth-htaccess
 admin-auth-htaccess: prepare
 	$(KUBECTX) -n kube-system create secret generic $@ \
@@ -57,5 +63,5 @@ admin-auth-htaccess: prepare
 
 
 .PHONY: all
-all: admin-auth-htaccess hello-world miniflux freshrss longhorn
+all: admin-auth-htaccess hello-world miniflux freshrss longhorn monitoring
 

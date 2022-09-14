@@ -1,7 +1,8 @@
+namespace: monitoring
+
 resources:
   - namespace.yml
-  - prometheus
-  - grafana
-  - promtail
-  - loki
-  - node-exporter
+  - secret.yml
+  - grafana-agent
+  - grafana-agent-loki
+  - kubestatemetrics

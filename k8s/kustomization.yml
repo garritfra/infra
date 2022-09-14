@@ -7,7 +7,6 @@ resources:
 - longhorn
 - traefik
 - users
-- miniflux
+# - miniflux
 # - monitoring
-- hello-world
-# - freshrss
+# - hello-world
