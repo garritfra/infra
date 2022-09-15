@@ -24,8 +24,8 @@ resource "hcloud_server" "k8s" {
   name        = "htz-${local.locations[count.index % length(local.locations)]}-${floor(count.index / length(local.locations))}"
   location    = local.locations[count.index % length(local.locations)]
   image       = "ubuntu-22.04"
-  server_type = "cpx11"
-  keep_disk   = false
+  server_type = "cx21"
+  keep_disk   = true
   ssh_keys    = [hcloud_ssh_key.garrit.id]
   public_net {
     ipv4_enabled = true

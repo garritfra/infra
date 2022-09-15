@@ -1,0 +1,17 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: ingress-nginx
+spec:
+  chart: ingress-nginx
+  repo: https://kubernetes.github.io/ingress-nginx
+  targetNamespace: nginx
+  valuesContent: |-
+    controller:
+      replicaCount: 2
+      metrics:
+        enabled: true
+        service:
+          annotations:
+            prometheus.io/port: "9100"
+            prometheus.io/scrape: "true"

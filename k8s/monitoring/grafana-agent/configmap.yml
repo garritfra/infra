@@ -7,7 +7,7 @@ data:
     metrics:
       wal_directory: /var/lib/agent/wal
       global:
-        scrape_interval: 60s
+        scrape_interval: 90s
         external_labels:
           cluster: ${CLUSTER_NAME}
       configs:
@@ -72,6 +72,18 @@ data:
                 regex: kube-state-metrics
                 source_labels:
                   - __meta_kubernetes_pod_label_app_kubernetes_io_name
+        - job_name: "kubernetes-services"
+          kubernetes_sd_configs:
+            - role: service
+          relabel_configs:
+            - action: labelmap
+              regex: __meta_kubernetes_service_label_(.+)
+            - source_labels: [__meta_kubernetes_namespace]
+              action: replace
+              target_label: namespace
+            - source_labels: [__meta_kubernetes_service_name]
+              action: replace
+              target_label: service
         
     integrations:
       eventhandler:

@@ -1,0 +1,5 @@
+namespace: nginx
+
+resources:
+  - namespace.yml
+  - helmchart.yml

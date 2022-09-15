@@ -5,8 +5,8 @@ resources:
 - cert-manager
 - postgres-operator
 - longhorn
-- traefik
+- nginx
 - users
-# - miniflux
+- miniflux
 # - monitoring
 # - hello-world
