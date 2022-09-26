@@ -3,3 +3,4 @@ namespace: nginx
 resources:
   - namespace.yml
   - helmchart.yml
+  - configmap.yml

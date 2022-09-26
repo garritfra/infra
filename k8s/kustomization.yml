@@ -8,5 +8,5 @@ resources:
 - nginx
 - users
 - miniflux
-# - monitoring
+- monitoring
 # - hello-world

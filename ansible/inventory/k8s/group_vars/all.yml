@@ -18,4 +18,5 @@ k3s_server:
   flannel-backend: "none"
   disable:
     - traefik
+    - local-storage
 k3s_agent:
