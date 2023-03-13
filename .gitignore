@@ -3,3 +3,4 @@ ansible/galaxy_roles
 .DS_Store
 
 charts/
+k3s-hetzner.yaml

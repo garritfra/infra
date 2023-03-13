@@ -1,12 +1,11 @@
 kind: Kustomization
 
 resources:
-- sealed-secrets
-- cert-manager
-- postgres-operator
-- longhorn
-- nginx
 - users
-- miniflux
+- nginx
+- cert-manager
 - monitoring
+# - postgres-operator
+# - longhorn
+# - miniflux
 # - hello-world

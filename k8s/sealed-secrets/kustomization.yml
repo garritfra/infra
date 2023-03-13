@@ -1,8 +1,0 @@
-kind: Kustomization
-
-resources:
-- crd.yml
-- deployment.yml
-- rbac.yml
-- service.yml
-

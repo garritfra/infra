@@ -5,7 +5,7 @@ provider "hcloud" {
 
 locals {
   hcloud_token = sensitive(data.ansiblevault_path.hcloud_token.value)
-  control_plane_count = 3
+  control_plane_count = 0
   locations = [
     "nbg1",
     "fsn1"

@@ -1,6 +1,0 @@
-namespace: traefik
-
-resources:
-  - namespace.yml
-  - middlewares.yml
-  - helmchart.yml
