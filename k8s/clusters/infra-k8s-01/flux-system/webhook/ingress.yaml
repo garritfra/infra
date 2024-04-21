@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flux-webhook
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  # tls:
+  # - hosts:
+  #     - flux-webhook.infra-k8s.slashdev.space
+  #   secretName: flux-webhook-tls
+  rules:
+  - host: flux-webhook.infra-k8s.slashdev.space
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: flux-webhook
+            port:
+              number: 80
