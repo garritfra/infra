@@ -4,6 +4,9 @@ kind: Kustomization
 bases:
 - ../../bases/infra
 
+resources:
+- ../../apps/cert-manager
+
 patches:
 - target:
     kind: Kustomization
