@@ -3,5 +3,3 @@ kind: Kustomization
 
 resources:
 - ./00-namespace.yaml
-- ./10-flux-repo.yaml
-- ./11-flux-kustomization.yaml
