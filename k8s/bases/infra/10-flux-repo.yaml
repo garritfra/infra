@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: infra
+  namespace: infra-base
+spec:
+  interval: 24h
+  url: ssh://git@github.com:garritfra/infra.git
+  ref:
+    branch: main
