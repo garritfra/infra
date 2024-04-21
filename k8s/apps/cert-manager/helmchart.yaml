@@ -12,3 +12,5 @@ spec:
         kind: HelmRepository
         name: cert-manager
       interval: 1m
+  values:
+    installCRDs: true
