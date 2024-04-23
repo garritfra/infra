@@ -1,17 +1,7 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
-- ../../bases/infra
-
 resources:
-- ../../apps/cert-manager
-
-patches:
-- target:
-    kind: Kustomization
-    name: infra
-  patch: |-
-    - op: replace
-      path: /spec/path
-      value: ./clusters/infra-k8s-01
+- ./flux-system
+- ./infra

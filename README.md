@@ -14,7 +14,7 @@ in the private "infra-archive" repository
 2. Make sure the node you're setting up can read the repository
 3. `flux bootstrap git --url=ssh://git@github.com/garritfra/infra --branch=main --private-key-file=.ssh/id_ed25519 --path=k8s/clusters/infra-k8s-01`
 4. Save age cluster key as `age-key.txt`
-5. `kubectl create secret generic sops-age --namespace=flux-system --from-file=age.agekey=/dev/stdin`
+5. `cat age.agekey kubectl create secret generic infra-sops-age-key --namespace=infra-base --from-file=age.agekey=/dev/stdin`
 
 ## Encrypt Secrets
 
