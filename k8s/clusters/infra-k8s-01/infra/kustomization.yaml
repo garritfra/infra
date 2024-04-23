@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../../../bases/infra
+
+resources:
+- ./90-infra-git-key.yaml
+
+patches:
+- target:
+    kind: Kustomization
+    name: infra
+  patch: |-
+    - op: replace
+      path: /spec/path
+      value: ./k8s/clusters/infra-k8s-01
