@@ -5,6 +5,6 @@
 
 roles:
   - name: xanmanning.k3s
-    version: v3.2.0
+    version: v3.4.4
 
 collections:
