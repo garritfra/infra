@@ -6,7 +6,7 @@ volumes:
 
 services:
   db:
-    image: postgres:13.2
+    image: postgres:16.2
     restart: always
     environment:
       - POSTGRES_DB={{ NEXTCLOUD_POSTGRES_DB }}
