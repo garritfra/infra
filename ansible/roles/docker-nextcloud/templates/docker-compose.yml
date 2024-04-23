@@ -20,7 +20,7 @@ services:
     networks:
       - nextcloud
   redis:
-    image: redis:6.0
+    image: redis:7.2
     restart: always
     networks:
       - nextcloud
