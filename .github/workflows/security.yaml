@@ -1,0 +1,28 @@
+name: Security Scan
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+jobs:
+  scan:
+    name: Run Trivy Scan
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Trivy vulnerability scanner in fs mode
+      uses: aquasecurity/trivy-action@0.19.0
+      with:
+        scan-type: 'fs'
+        scan-ref: './k8s'
+        trivyignores: './.trivyignore'
+        format: 'sarif'
+        scanners: 'vuln,secret,config'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: 'trivy-results.sarif'
