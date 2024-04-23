@@ -27,7 +27,7 @@ services:
     command: redis-server --requirepass {{ NEXTCLOUD_REDIS_HOST_PASSWORD }}
 
   nextcloud:
-    image: nextcloud:21.0.9
+    image: nextcloud:28.0.4
     ports:
       - 8081:80
     networks:
