@@ -9,7 +9,7 @@ terraform {
   required_providers {
     ansiblevault = {
       source  = "Tyron2k/ansiblevault"
-      version = "2.1.1"
+      version = "3.0.12"
     }
     hcloud = {
       source = "hetznercloud/hcloud"
