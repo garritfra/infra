@@ -6,30 +6,18 @@ This repository serves as the single source of truth for my infrastructure.
 and start fresh. No more secrets (hopefully)!! The previous history can be found
 in the private "infra-archive" repository
 
-## Deployment
+# Kubernetes
 
-1. To access the secrets, create a `.vault-password` file in the `ansible/`
-directory containing the password.
-2. Change into the `ansible/` directory
-3. Deploy the infrastructure using `ansible-playbook boostrap.yml`. This will
-deploy the terraform config under the hood.
+## Cluster bootstrapping
 
-Unfortunately, the next steps have not been automated yet:
+1. Spin up a cluster
+2. Make sure the node you're setting up can read the repository
+3. `flux bootstrap git --url=ssh://git@github.com/garritfra/infra --branch=main --private-key-file=.ssh/id_ed25519 --path=k8s/clusters/infra-k8s-01`
+4. Save age cluster key as `age-key.txt`
+5. `kubectl create secret generic sops-age --namespace=flux-system --from-file=age.agekey=/dev/stdin`
 
-1. After provisioning the terraform infrastructure, the nodes manually have to
-be added to the Tailscale cluster. Afterwards, you can add them to the `hosts.ini`.
+## Encrypt Secrets
 
-## Ansible
-
-To access the secrets, create a `.vault-password` file in the `ansible/`
-directory containing the password.
-
-## Terraform
-
-State is managed by Terraform cloud (though it would be nice to move it somewhere else...).
-
-Run `terraform login` to access it.
-
-## Kubernetes
-
-To apply the resources to the cluster, run `kustomize build --enable-helm k8s | kubectl apply -f -`.
+1. Create the secret like you would any other secret
+2. `sops --age=<public-key> --encrypt --in-place path/to/secret.yaml`
+   1. This assumes that you have a `.sops.yaml` in your directory (TODO: Or at the repo top level?)

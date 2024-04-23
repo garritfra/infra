@@ -4,3 +4,5 @@ ansible/galaxy_roles
 
 charts/
 k3s-hetzner.yaml
+
+age.agekey
