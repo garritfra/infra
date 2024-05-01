@@ -11,4 +11,4 @@ spec:
     name: webhook-token
   resources:
     - kind: GitRepository
-      name: infra-base
+      name: flux-system

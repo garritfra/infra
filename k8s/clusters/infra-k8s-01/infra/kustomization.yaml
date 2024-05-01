@@ -5,7 +5,6 @@ bases:
 - ../../../bases/infra
 
 resources:
-- ./10-webhook-token.yaml
 - ./90-infra-git-key.yaml
 
 patches:
