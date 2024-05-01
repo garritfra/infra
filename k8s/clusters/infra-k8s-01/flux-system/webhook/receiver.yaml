@@ -12,3 +12,5 @@ spec:
   resources:
     - kind: GitRepository
       name: flux-system
+    - kind: GitRepository
+      name: infra-base
