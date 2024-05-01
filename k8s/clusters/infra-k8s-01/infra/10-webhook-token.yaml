@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: webhook-token
+    namespace: infra-base
 type: Opaque
 data:
     token: ENC[AES256_GCM,data:OZeSYmgjExEh0bw12CbZHFPnqlD1DMODGWHH3+NW0IJyYh5npV7WbHaVCqbsQEx+lrUkL34JwxM=,iv:yKnABZprjO4kfRc3jL+VOqK+4ZhiCGazchAzJjXqG2Q=,tag:9Ap2o9Xqm/BZUFPAaM3Kuw==,type:str]
